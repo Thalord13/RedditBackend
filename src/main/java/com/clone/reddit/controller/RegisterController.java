@@ -1,7 +1,7 @@
 package com.clone.reddit.controller;
 
 import com.clone.reddit.model.Response;
-import com.clone.reddit.model.User;
+import com.clone.reddit.model.UserAccount;
 import com.clone.reddit.service.implementation.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +22,11 @@ public class RegisterController {
 
     private final UserServiceImpl userService;
 
+    @GetMapping("/test")
+    public String test() {
+        return "THIS IS TEST";
+    }
+
     @GetMapping("/api/register")
     public ResponseEntity<Response> getUsers() throws InterruptedException {
         return ResponseEntity.ok(
@@ -36,7 +41,7 @@ public class RegisterController {
     }
 
     @PostMapping("/api/register/save")
-    public ResponseEntity<Response> saveServer(@RequestBody User user)
+    public ResponseEntity<Response> saveServer(@RequestBody UserAccount user)
     {
         return ResponseEntity.ok(
             Response.builder()

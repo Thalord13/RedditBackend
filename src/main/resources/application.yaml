@@ -1,14 +1,46 @@
-
+#POSTGRESQL PROD
 spring:
   datasource:
-    password: changeme
-    url: jdbc:mysql://localhost:3306/reddit
-    username: root
+    url: jdbc:postgresql://dpg-cp9l3hf109ks73aajo4g-a:5432/reddit_9l0u
+    username: reddit_9l0u_user
+    password: 53os4BTwiuBfP8a6Dk1uvEk3zdFYP9Lv
+    driver-class-name: org.postgresql.Driver
   jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
-        format_sql: true
-    show-sql: true
+        show_sql: true # You can set this to false in production
+        format_sql: true # You can set this to false in production
+
+#POSTGRESQL LOCAL
+#spring:
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/reddit
+#    username: postgres
+#    password:
+#    driver-class-name: org.postgresql.Driver
+#  jpa:
+#    database-platform: org.hibernate.dialect.PostgreSQLDialect
+#    hibernate:
+#      ddl-auto: update
+#    properties:
+#      hibernate:
+#        show_sql: true # You can set this to false in production
+#        format_sql: true # You can set this to false in production
+
+#MYSQL
+#spring:
+#  datasource:
+#    password: changeme
+#    url: jdbc:mysql://localhost:3306/reddit
+#    username: root
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.MySQL8Dialect
+#        format_sql: true
+#    show-sql: true

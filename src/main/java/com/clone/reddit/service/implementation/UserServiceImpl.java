@@ -1,6 +1,6 @@
 package com.clone.reddit.service.implementation;
 
-import com.clone.reddit.model.User;
+import com.clone.reddit.model.UserAccount;
 import com.clone.reddit.repo.UserRepo;
 import com.clone.reddit.service.UserService;
 import jakarta.transaction.Transactional;
@@ -21,13 +21,13 @@ public class UserServiceImpl implements UserService {
     private final UserRepo userRepo;
 
     @Override
-    public User create(User user) {
+    public UserAccount create(UserAccount user) {
         log.info("Saving new user: {}", user.getDisplayname());
         return userRepo.save(user);
     }
 
     @Override
-    public Collection<User> list() {
+    public Collection<UserAccount> list() {
         log.info("Fetching all users");
         return userRepo.findAll();
     }

@@ -1,10 +1,10 @@
 package com.clone.reddit.service;
 
-import com.clone.reddit.model.User;
+import com.clone.reddit.model.UserAccount;
 
 import java.util.Collection;
 
 public interface UserService {
-    User create(User user);
-    Collection<User> list();
+    UserAccount create(UserAccount user);
+    Collection<UserAccount> list();
 }
