@@ -39,12 +39,13 @@ public class JwtService {
             Map<String, Object> extraClaims,
             UserDetails userDetails
     ) {
+        long expirationTimeMillis = System.currentTimeMillis() + 30 * 60 * 1000; // 30 minutes in milliseconds
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000))
+                .setExpiration(new Date(expirationTimeMillis))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
