@@ -50,12 +50,19 @@ public class UserServiceImpl implements UserService {
     public AuthenticationResponse authenticate(AuthenticateRequest request) {
 // COMMENT FOR NOW
 // TO DO TEST TOKEN EXPIRY
-//        authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(
-//                        request.getUsername(),
-//                        request.getPassword()
-//                )
-//        );
+        try
+        {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getUsername(),
+                            request.getPassword()
+                    )
+            );
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+
         var user = userRepo.findByUsername(request.getUsername())
                 .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
