@@ -33,6 +33,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public AuthenticationResponse register(UserAccount request) {
+        var isExistUser = userRepo.findByUsername(request.getUsername());
+        if(isExistUser.isPresent())
+        {
+            return AuthenticationResponse.builder()
+                    .token("Existing")
+                    .isExist(true)
+                    .build();
+        }
         var user = UserAccount.builder()
                 .username(request.getUsername())
                 .displayname(request.getDisplayname())
@@ -44,6 +52,7 @@ public class UserServiceImpl implements UserService {
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .isExist(false)
                 .build();
     }
 
