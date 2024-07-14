@@ -37,7 +37,6 @@ public class UserServiceImpl implements UserService {
         if(isExistUser.isPresent())
         {
             return AuthenticationResponse.builder()
-                    .token("Existing")
                     .isExist(true)
                     .build();
         }
@@ -57,8 +56,6 @@ public class UserServiceImpl implements UserService {
     }
 
     public AuthenticationResponse authenticate(AuthenticateRequest request) {
-// COMMENT FOR NOW
-// TO DO TEST TOKEN EXPIRY
         try
         {
             authenticationManager.authenticate(
@@ -70,13 +67,16 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
+            return AuthenticationResponse.builder()
+                    .isExist(false)
+                    .build();
         }
-
         var user = userRepo.findByUsername(request.getUsername())
                 .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .isExist(true)
                 .build();
     }
 
