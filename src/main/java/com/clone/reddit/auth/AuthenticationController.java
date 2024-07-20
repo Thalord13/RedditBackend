@@ -57,16 +57,31 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<Response> login(@RequestBody AuthenticateRequest request)
     {
-        return ResponseEntity.ok(
-                Response.builder()
-                        .timeStamp(now())
-                        .data(Map.of("User", userService.authenticate(request)))
-                        .message("Login is successful")
-                        .status(CREATED)
-                        .statusCode(OK.value())
-                        .build()
-        );
 
+        AuthenticationResponse authenticationResponse = userService.authenticate(request);
+
+        if(!authenticationResponse.getIsExist())
+        {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Response.builder()
+                            .timeStamp(now())
+                            .message("Login Error")
+                            .status(NOT_FOUND)
+                            .statusCode(NOT_FOUND.value())
+                            .build()
+                    );
+        } else
+        {
+            return ResponseEntity.ok(
+                    Response.builder()
+                            .timeStamp(now())
+                            .data(Map.of("User", authenticationResponse))
+                            .message("Login is successful")
+                            .status(CREATED)
+                            .statusCode(OK.value())
+                            .build()
+            );
+        }
     }
 
 }
