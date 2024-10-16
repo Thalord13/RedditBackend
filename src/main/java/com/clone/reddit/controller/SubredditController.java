@@ -34,4 +34,20 @@ public class SubredditController {
         );
     }
 
+    @PutMapping("/create/subreddit/{id}")
+    public ResponseEntity<Response> updateSubreddit(@RequestHeader("Authorization") String authorizationHeader,
+                                                    @PathVariable Long id,
+                                                    @RequestBody SubredditDTO request)
+    {
+        return ResponseEntity.ok(
+                Response.builder()
+                        .timeStamp(now())
+                        .data(Map.of("Subreddit", subredditService.update(authorizationHeader, id, request)))
+                        .message("Subreddit successfuly updated")
+                        .status(CREATED)
+                        .statusCode(CREATED.value())
+                        .build()
+        );
+    }
+
 }

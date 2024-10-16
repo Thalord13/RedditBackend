@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SubredditRuleDTO {
 
+    private Long Id;
     private String rule;
 
 }
